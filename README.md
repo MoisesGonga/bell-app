@@ -42,11 +42,39 @@ src/
 public/sounds/            built-in recording
 ```
 
+## Branches and releases
+
+| Branch | Purpose | Deploys to |
+| --- | --- | --- |
+| `main` | Production. Only receives merges from `dev`. | Vercel **Production** (the main domain) |
+| `dev` | Integration. All work lands here first. | Vercel **Preview** with a fixed `dev` branch URL |
+| `feature/*`, `fix/*` | One change each, branched from `dev`. | Vercel **Preview** per pull request |
+
+Flow:
+
+1. Branch from `dev`: `git switch dev && git pull && git switch -c feature/my-change`
+2. Open a pull request into `dev`. CI must pass; Vercel posts a preview link to test.
+3. Merge into `dev`. The `dev` preview URL updates so the change can be checked as a whole.
+4. When `dev` is ready to release, open a pull request from `dev` into `main`.
+5. Merge into `main`. Vercel deploys to production.
+
+Hotfix: branch `fix/*` from `main`, merge into `main`, then merge `main` back into `dev`.
+
 ## CI/CD
 
-- **CI** — GitHub Actions (`.github/workflows/ci.yml`) runs lint, tests and a production build on every push to `main` and every pull request.
-- **CD** — Vercel is connected to this repository. Every push to `main` deploys to production; every pull request gets its own preview URL. Protect `main` in GitHub and require the **CI** check so only passing changes reach production.
-- **Dependencies** — Dependabot opens weekly update pull requests.
+- **CI** — GitHub Actions (`.github/workflows/ci.yml`) runs lint, tests and a production build on every push to `main` or `dev` and on every pull request into them.
+- **CD** — Vercel is connected to this repository with `main` as the production branch. Pushes to `main` deploy to production; pushes to `dev` and pull requests deploy previews.
+- **Dependencies** — Dependabot opens weekly update pull requests against `dev`.
+
+### Recommended GitHub settings
+
+In **Settings → Branches → Add branch ruleset** (or classic branch protection), for both `main` and `dev`:
+
+- Require a pull request before merging
+- Require status checks to pass: **Lint, test and build**
+- Block force pushes and deletions
+
+For `main`, also restrict who can push, and allow merges only from `dev` (or `fix/*` for hotfixes).
 
 ## Credits
 
