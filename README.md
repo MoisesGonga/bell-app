@@ -76,6 +76,10 @@ In **Settings → Branches → Add branch ruleset** (or classic branch protectio
 
 For `main`, also restrict who can push, and allow merges only from `dev` (or `fix/*` for hotfixes).
 
+## License
+
+MIT, see [LICENSE](LICENSE).
+
 ## Credits
 
 "Old phone" sound effect by scottishperson, from Pixabay (Pixabay Content License).
