@@ -10,6 +10,8 @@ Tap the bell to hear an old telephone ring. A small React app in a black-and-whi
 - Volume, playback speed (0.5×–2×) and ring length (1, 2, 4 rings or until tapped)
 - Light, Dark or Automatic appearance; responsive from phones to desktops
 - Added sounds are stored in the browser with IndexedDB
+- Keeps ringing when the phone locks or the app goes to the background; Pause/Stop from the lock screen (Media Session)
+- Optional "keep the screen on while ringing" (Screen Wake Lock)
 
 ## Development
 
@@ -35,7 +37,8 @@ src/
     Recorder.jsx          microphone recorder with review step
     Segmented.jsx, Icons.jsx
   lib/
-    audio.js              Web Audio engine (play, stop, speed, level)
+    audio.js              playback engine: media element, lock-screen controls, wake lock
+    clip.js               renders each ring to a WAV clip (pure, tested)
     library.js            IndexedDB sound library
     settings.js           saved preferences
     format.js             pure helpers (tested)

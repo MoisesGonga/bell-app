@@ -12,6 +12,7 @@ describe("sanitize", () => {
       speed: 0.5,
       length: "loop",
       sound: "u1",
+      keepAwake: true,
     });
   });
   it("drops invalid values", () => {
