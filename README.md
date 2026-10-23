@@ -10,6 +10,7 @@ Tap the bell to hear an old telephone ring. A small React app in a black-and-whi
 - Volume, playback speed (0.5×–2×) and ring length (1, 2, 4 rings or until tapped)
 - Light, Dark or Automatic appearance; responsive from phones to desktops
 - Added sounds are stored in the browser with IndexedDB
+- Page-view analytics with Vercel Web Analytics (no cookies)
 
 ## Development
 
