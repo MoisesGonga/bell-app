@@ -48,6 +48,17 @@ export default function App() {
   }, [settings]);
   useEffect(() => audio.setVolume(settings.volume), [settings.volume]);
   useEffect(() => audio.setSpeed(settings.speed), [settings.speed]);
+  useEffect(() => audio.setKeepAwake(settings.keepAwake), [settings.keepAwake]);
+
+  // Render the next ring ahead of time so a tap starts it instantly (phones require that).
+  useEffect(() => {
+    if (!loaded) return;
+    const t = setTimeout(
+      () => audio.prepare({ id: selected.id, length: settings.length, volume: settings.volume }),
+      300,
+    );
+    return () => clearTimeout(t);
+  }, [loaded, selected.id, settings.length, settings.volume]);
 
   function play(id, length, countIt) {
     if (playingId) {
@@ -63,6 +74,8 @@ export default function App() {
         length,
         volume: settings.volume,
         speed: settings.speed,
+        title: sounds.find((x) => x.id === id)?.name || "Bell",
+        keepAwake: settings.keepAwake,
         onEnd: () => setPlayingId((p) => (p === id ? null : p)),
       })
       .catch(() => {

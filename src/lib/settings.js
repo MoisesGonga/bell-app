@@ -6,6 +6,7 @@ export const DEFAULTS = Object.freeze({
   volume: 0.8, // 0..1
   length: "1", // "1" | "2" | "full" | "loop"
   speed: 1, // 0.5..2
+  keepAwake: true, // keep the screen on while ringing
 });
 
 const THEMES = ["light", "dark", "system"];
@@ -22,6 +23,7 @@ export function sanitize(raw) {
   if (Number.isFinite(raw.volume)) s.volume = clamp(raw.volume, 0, 1);
   if (LENGTHS.includes(raw.length)) s.length = raw.length;
   if (Number.isFinite(raw.speed)) s.speed = clamp(raw.speed, 0.5, 2);
+  if (typeof raw.keepAwake === "boolean") s.keepAwake = raw.keepAwake;
   return s;
 }
 

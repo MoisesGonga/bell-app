@@ -271,6 +271,26 @@ export default function Settings({
           For sounds you add, one ring plays the whole file once. Tap the bell while it rings to stop it.
         </p>
 
+        <div className="label">While ringing</div>
+        <div className="group">
+          <div className="row">
+            <label className="toggle-row" htmlFor="keep-awake">
+              <span>Keep the screen on</span>
+              <input
+                type="checkbox"
+                className="switch"
+                id="keep-awake"
+                checked={s.keepAwake}
+                onChange={(e) => update({ keepAwake: e.target.checked })}
+              />
+            </label>
+          </div>
+        </div>
+        <p className="note">
+          The ring keeps playing if you lock the phone or switch apps, and you can stop it from the lock screen. A
+          new ring can only start while Bell is open.
+        </p>
+
         <div className="label">Appearance</div>
         <div className="group">
           <div className="row">
